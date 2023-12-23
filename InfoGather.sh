@@ -1,11 +1,16 @@
 #!/bin/bash
 
 #basic system enumeration:
-echo "KERNEL INFO"
+echo "KERNEL/SYSTEM INFO"
 echo ""
 uname -a
-echo "----------"
 echo ""
+echo "Sudo version:"
+sudo -V | grep "Sudo ver"
+echo ""
+echo "Disk information:" #Native command for MACs, could work on Linux
+diskutil list
+echo "----------"
 echo "NETWORK INFO"
 echo ""
 ip -4 addr
@@ -15,6 +20,9 @@ if [ $? -ne 0 ]; then
     #by default, ip does not appear to be installed on Mac systems, script will try to run ifconifg if ip fails
     ifconfig
 fi
+echo ""
+echo "ARP Information:"
+arp -a
 echo ""
 scutil --dns
 # Check the exit status of the command
@@ -34,7 +42,9 @@ id_output=$(id)
 for line in $id_output; do
     echo "$line"
 done
-
+echo ""
+echo "Login information:"
+last
 echo ""
 echo ""
 
@@ -47,6 +57,8 @@ done
 
 echo ""
 echo ""
+
+
 
 echo "Do you have access to write to a PATH folder?"
 IFS=:
@@ -82,4 +94,8 @@ for directory in $home_dir; do
 done
 echo ""
 echo ""
+echo "Current running processes:"
+echo ""
+ps aux
+
 
